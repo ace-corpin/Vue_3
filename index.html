@@ -48,12 +48,12 @@
     </div>
 
     <div id="App_2">
-        <section>
+        <section v-show="InProgressAssignments.length">
             <h2>Assignments</h2>
 
             <ul list-style-type:none>
                 <li
-                        v-for="Assignment in assignments.filter(a => ! a.complete)"
+                        v-for="Assignment in InProgressAssignments"
                         :key="Assignment.id"
                 >
                     <label>
@@ -71,11 +71,11 @@
 
         </section>
 
-        <section v-show="CompleteAssignments.length">
+        <section v-show="CompletedAssignments.length">
             <h2>Completed Assignments</h2>
             <ul list-style-type:none>
                 <li
-                        v-for="Assignment in assignments.filter(a=>a.complete)"
+                        v-for="Assignment in CompletedAssignments"
                         :key="Assignment.id"
                 >
                     <label>
@@ -122,8 +122,12 @@
             },
 
             computed: {
+                InProgressAssignments(){
+                    return this.assignments.filter(Assignments => ! Assignments.complete);
+                },
+
                 CompletedAssignments(){
-                    return this.assignments
+                    return this.assignments.filter(Assignments => Assignments.complete);
                 }
             }
         };
