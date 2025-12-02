@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+        .h-full{
+            height: 100%
+        }
+
+        .grid {
+            display: grid;
+        }
+        .place-item-center{
+            place-items: center;
+        }
+
+        .text-green{
+            color:green;
+        }
+
+        .bg-gray{
+            background-color: gray;
+        }
+        ul{
+            list-style-type: none;
+        }
+    </style>
+
+
+</head>
+<body class="h-full grid place-item-center">
+
+    <div id="app">
+        <p>
+            <input type="text" v-model="greeting">
+        </p>
+
+        <p class="text-green">
+            {{ greeting }} ({{greeting.length}})
+        </p>
+
+        <p>
+            <button>Click Here</button>
+        </p>
+    </div>
+
+    <div id="App_2">
+        <section>
+            <h2>Assignments</h2>
+
+            <ul list-style-type:none>
+                <li
+                        v-for="Assignment in assignments.filter(a => ! a.complete)"
+                        :key="Assignment.id"
+                >
+                    <label>
+
+                        <input type="checkbox" v-model="Assignment.complete">
+                        {{Assignment.name}}
+                    </label>
+                </li>
+                <!--
+                <li> <input type="checkbox">Finish Project</li>
+                <li> <input type="checkbox">Note</li>
+                <li> <input type="checkbox">homework</li>
+                -->
+            </ul>
+
+        </section>
+
+        <section v-show="CompleteAssignments.length">
+            <h2>Completed Assignments</h2>
+            <ul list-style-type:none>
+                <li
+                        v-for="Assignment in assignments.filter(a=>a.complete)"
+                        :key="Assignment.id"
+                >
+                    <label>
+
+                        <input type="checkbox" v-model="Assignment.complete">
+                        {{Assignment.name}}
+                    </label>
+                </li>
+                <!--
+                <li> <input type="checkbox">Finish Project</li>
+                <li> <input type="checkbox">Note</li>
+                <li> <input type="checkbox">homework</li>
+                -->
+            </ul>
+        </section>
+    </div>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    greeting: 'OKKAY'
+                };
+            },
+            /*
+            mounted(){
+                setTimeout(() => {
+                    this.greeting = "Changed";
+                }, 1500)
+            }
+            */
+
+        }).mount('#app');
+
+        let App_2 ={
+            data (){
+                return {
+                    assignments: [
+                        { name: 'Finish Project', complete: false, id:1},
+                        { name: 'Note', complete: false, id:2},
+                        { name: 'Homework', complete: false, id:3},
+                        { name: 'Read Chapter 6', complete: false, id:4},
+                    ]
+                }
+            },
+
+            computed: {
+                CompletedAssignments(){
+                    return this.assignments
+                }
+            }
+        };
+
+
+        Vue.createApp(App_2).mount('#App_2');
+    </script>
+
+<footer>
+    <button class="bg-gray">Click footer</button>
+</footer>
+</body>
+</html>
